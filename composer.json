@@ -1,0 +1,23 @@
+{
+    "name": "creof/doctrine2-custom-types",
+    "type": "library",
+    "description": "Doctrine2 custom data types",
+    "keywords": ["orm", "database", "type", "data"],
+    "authors": [
+        {
+            "name": "Derek Lambert",
+            "email": "dlambert@dereklambert.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "dev-master"
+    },
+    "require-dev": {
+        "doctrine/common": "dev-master",
+        "doctrine/dbal": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "CrEOF": "lib/" }
+    }
+}
