@@ -10,4 +10,5 @@ $loader = new \Composer\Autoload\ClassLoader();
 $loader->add('Doctrine\Tests', __DIR__ . '/../../../vendor/doctrine/orm/tests');
 $loader->register();
 
-//\Doctrine\DBAL\Types\Type::addType('point', '\CrEOF\DBAL\Types\PointType');
+\Doctrine\DBAL\Types\Type::addType('approx_date', '\CrEOF\DBAL\Types\ApproxDateType');
+\Doctrine\DBAL\Types\Type::addType('gender', '\CrEOF\DBAL\Types\GenderType');
