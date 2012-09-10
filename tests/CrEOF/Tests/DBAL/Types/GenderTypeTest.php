@@ -98,6 +98,40 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->flush();
     }
+
+    public function testGenderFind()
+    {
+        $gender1 = new Gender();
+        $gender1->setGender('m');
+        $this->_em->persist($gender1);
+
+        $gender2 = new Gender();
+        $gender2->setGender('m');
+        $this->_em->persist($gender2);
+
+        $gender3 = new Gender();
+        $gender3->setGender('f');
+        $this->_em->persist($gender3);
+
+        $gender4 = new Gender();
+        $gender4->setGender('f');
+        $this->_em->persist($gender4);
+
+        $this->_em->flush();
+
+        $id1 = $gender1->getId();
+        $id2 = $gender2->getId();
+        $id3 = $gender3->getId();
+        $id4 = $gender4->getId();
+
+        $this->_em->clear();
+
+        $males = $this->_em->getRepository(self::GENDER)->findByGender('m');
+        $this->assertCount(2, $males);
+
+        $females = $this->_em->getRepository(self::GENDER)->findByGender('f');
+        $this->assertCount(2, $females);
+    }
 }
 
 /**
