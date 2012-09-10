@@ -1,6 +1,8 @@
 <?php
-namespace OMC\StoreBundle\Types;
 
+namespace CrEOF\DBAL\Types;
+
+use CrEOF\Exception\InvalidValueException;
 use Doctrine\DBAL\Types\BooleanType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
@@ -9,7 +11,8 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  *
  * Store gender string of "m" or "f" in database as boolean value
  */
-class GenderType extends BooleanType {
+class GenderType extends BooleanType
+{
     const GENDER = 'gender';
 
     /**
@@ -20,8 +23,9 @@ class GenderType extends BooleanType {
      *
      * @return null|string
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform) {
-        return (null === $value) ? null : ($value ? 'm' : 'f');
+    public function convertToPHPValue($value, AbstractPlatform $platform)
+    {
+        return (null === $value ? null : ($value ? 'm' : 'f'));
     }
 
     /**
@@ -30,17 +34,29 @@ class GenderType extends BooleanType {
      * @param string           $value
      * @param AbstractPlatform $platform
      *
+     * @throws InvalidValueException
+     *
      * @return bool
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) {
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    {
         switch (strtolower($value)) {
+            case null:
+                break;
+            case 'male':
+                //no break
             case 'm':
                 $value = true;
                 break;
+            case 'female':
+                //no break
             case 'f':
                 $value = false;
                 break;
+            default:
+                throw new InvalidValueException("Invalid gender value: $value");
         }
+
         return parent::convertToDatabaseValue($value, $platform);
     }
 
@@ -49,7 +65,8 @@ class GenderType extends BooleanType {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return self::GENDER;
     }
 }
