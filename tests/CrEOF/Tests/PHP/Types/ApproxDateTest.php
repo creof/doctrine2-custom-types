@@ -12,7 +12,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('00000000', $date->getDate());
     }
 
-    public function testGoodDateOneArg()
+    public function testGoodDate()
     {
         $tests = array(
             array('date' => '45', 'result' => '19450000'),
@@ -36,94 +36,49 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGoodDateThreeArg()
-    {
-        $tests = array(
-            array('year' => 45, 'month' => null, 'day' => null, 'result' => '19450000'),
-            array('year' => 2011, 'month' => null, 'day' => null, 'result' => '20110000'),
-            array('year' => 85, 'month' => 3, 'day' => null, 'result' => '19850300'),
-            array('year' => '86', 'month' => '04', 'day' => null, 'result' => '19860400'),
-            array('year' => 2003, 'month' => 5, 'day' => null, 'result' => '20030500'),
-            array('year' => 1999, 'month' => 11, 'day' => null, 'result' => '19991100'),
-            array('year' => 1992, 'month' => 1, 'day' => 3, 'result' => '19920103'),
-            array('year' => '1992', 'month' => '01', 'day' => '03', 'result' => '19920103'),
-            array('year' => 93, 'month' => 11, 'day' => 5, 'result' => '19931105'),
-            array('year' => 95, 'month' => 12, 'day' => 15, 'result' => '19951215')
-        );
-
-        foreach ($tests as $test) {
-            $date = new ApproxDate($test['year'], $test['month'], $test['day']);
-            $this->assertEquals($test['result'], $date->getDate());
-        }
-    }
-
-    public function testBadNumArgs()
-    {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
-        $date = new ApproxDate(45, 2);
-    }
-
-    public function testBadArgsOrder()
-    {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
-        $date = new ApproxDate(3, 11, 2012);
-    }
-
-    public function testBadMonthArg()
-    {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
-        $date = new ApproxDate(2012, 14, 20);
-    }
-
-    public function testBadDayArg()
-    {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
-        $date = new ApproxDate(2012, 3, 54);
-    }
-
-    public function testBadDayString()
+    public function testBadDay()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/34/89');
     }
 
-    public function testBadDayString2()
+    public function testBadDay2()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19880254');
     }
 
-    public function testBadMonthString()
+    public function testBadMonth()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('14/3/89');
     }
 
-    public function testBadMonthString2()
+    public function testBadMonth2()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19861503');
     }
 
-    public function testBadYearString()
+    public function testBadYear()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/3/899');
     }
 
-    public function testBadYearString2()
+    public function testBadYear2()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/3/89953');
     }
 
-    public function testBadDateString()
+    public function testBadDate()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('198');
     }
 
-    public function testBadDateString2()
+    public function testBadDate2()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19987');
