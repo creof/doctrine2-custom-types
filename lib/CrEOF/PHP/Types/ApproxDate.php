@@ -24,21 +24,13 @@ class ApproxDate
     protected $year;
 
 
-    public function __construct()
+    /**
+     * @param null|string $date
+     */
+    public function __construct($date = null)
     {
-        switch (func_num_args()) {
-            case 0:
-                break;
-            case 1:
-                $this->setDate(func_get_arg(0));
-                break;
-            case 3:
-                $this->setYear(func_get_arg(0))
-                    ->setMonth(func_get_arg(1))
-                    ->setDay(func_get_arg(2));
-                break;
-            default:
-                throw new InvalidValueException('Invalid arguments');
+        if (!empty($date)) {
+            $this->setDate(func_get_arg(0));
         }
     }
 
