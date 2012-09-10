@@ -94,6 +94,36 @@ class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $queryRecord3 = $this->_em->getRepository(self::RECORD)->find($id3);
         $this->assertEquals($record3, $queryRecord3);
     }
+
+    public function testQueryApproxDate()
+    {
+        $record1 = new Record();
+        $record1->setDate(new ApproxDate('5/22/12'));
+        $this->_em->persist($record1);
+
+        $record2 = new Record();
+        $record2->setDate(new ApproxDate('1995'));
+        $this->_em->persist($record2);
+
+        $record3 = new Record();
+        $record3->setDate(new ApproxDate('11/78'));
+        $this->_em->persist($record3);
+
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $records = $this->_em
+            ->createQuery('SELECT r FROM CrEOF\Tests\DBAL\Types\Record r WHERE r.date > :date')
+            ->setParameter('date', new ApproxDate('2000'))
+            ->getResult();
+        $this->assertCount(1, $records);
+
+        $records = $this->_em
+            ->createQuery('SELECT r FROM CrEOF\Tests\DBAL\Types\Record r WHERE r.date < :date')
+            ->setParameter('date', new ApproxDate('1/1980'))
+            ->getResult();
+        $this->assertCount(1, $records);
+    }
 }
 
 /**
