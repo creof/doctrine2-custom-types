@@ -1,11 +1,14 @@
 <?php
-namespace OMC\StoreBundle\Types;
 
+namespace CrEOF\DBAL\Types;
+
+use CrEOF\PHP\Types\ApproxDate;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\StringType;
+use Doctrine\DBAL\Types\IntegerType;
 
-class ApproxDate extends StringType {
-    const APPROXDATE = 'approxdate';
+class ApproxDateType extends IntegerType
+{
+    const APPROX_DATE = 'approx_date';
 
     /**
      * Convert database value to PHP value
@@ -15,8 +18,9 @@ class ApproxDate extends StringType {
      *
      * @return null|string
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform) {
-        return (null === $value) ? null : ($value ? 'm' : 'f');
+    public function convertToPHPValue($value, AbstractPlatform $platform)
+    {
+        return ($value === null ? null : new ApproxDate($value));
     }
 
     /**
@@ -27,16 +31,9 @@ class ApproxDate extends StringType {
      *
      * @return bool
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) {
-        switch (strtolower($value)) {
-            case 'm':
-                $value = true;
-                break;
-            case 'f':
-                $value = false;
-                break;
-        }
-        return parent::convertToDatabaseValue($value, $platform);
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    {
+        return parent::convertToDatabaseValue(($value === null ? null : $value), $platform);
     }
 
     /**
@@ -44,7 +41,8 @@ class ApproxDate extends StringType {
      *
      * @return string
      */
-    public function getName() {
-        return self::GENDER;
+    public function getName()
+    {
+        return self::APPROX_DATE;
     }
 }
