@@ -203,9 +203,38 @@ class ApproxDate
     }
 
     /**
+     * Returns date formatted according to given format
+     *
+     * @param string $format
+     *
      * @return string
      */
-    protected function getDateFormat()
+    public function format($format)
+    {
+        $patterns = array(
+            'day' => '[dDjlNSwzW]',
+            'month' => '[FmMnt]',
+            'year' => '[LoYy]',
+            'time' => '[aABgGhHisueIOPTZ]',
+            'full' => '[crU]'
+        );
+
+        foreach ($patterns as $key => $pattern) {
+            if (empty($this->$key)) {
+                $format = preg_replace("/$pattern\W*/", '', $format);
+            }
+        }
+
+        $date = new \DateTime();
+        $date->setDate($this->year, ($this->month ? $this->month : 1), ($this->day ? $this->day : 1));
+
+        return $date->format($format);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFormatFromDate()
     {
         $patterns = array(
             '/11\D21\D(1999|99)/',
