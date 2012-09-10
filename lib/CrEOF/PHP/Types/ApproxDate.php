@@ -5,6 +5,9 @@ namespace CrEOF\PHP\Types;
 use CrEOF\Exception\InvalidValueException;
 
 /**
+ * ApproxDate type
+ *
+ * A pseudo-date object to store incomplete date values
  */
 class ApproxDate
 {
@@ -154,8 +157,6 @@ class ApproxDate
             '/^(?P<year>\d{4})(?P<month>0[0-9]|1[012])(?P<day>0[0-9]|[12][0-9]|3[01])$/'
         );
 
-        //$regex = '/^(?:(?P<month>0?[1-9]|1[012])[-\.\/](?:(?P<day>0?[1-9]|[12][0-9]|3[01])[-\.\/])?)?(?P<year>\d{2}|\d{4})$/';
-        //$regex = '/(?J)^(?:(?P<year>\d{4})(?P<month>0[1-9]|1[012])(?P<day>0[1-9]|[12][0-9]|3[01]))|(?:(?P<month>0?[1-9]|1[012])[-\.\/](?:(?P<day>0?[1-9]|[12][0-9]|3[01])[-\.\/])?)?(?P<year>\d{2}|\d{4})$/';
         $matches = null;
         $matched = null;
 
