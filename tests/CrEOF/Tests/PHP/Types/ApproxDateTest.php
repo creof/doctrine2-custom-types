@@ -6,8 +6,6 @@ use CrEOF\PHP\Types\ApproxDate;
 
 class ApproxDateTest extends \PHPUnit_Framework_TestCase
 {
-    const POSITION = 'CrEOF\Tests\Position';
-
     public function testDateNoArg()
     {
         $date = new ApproxDate();
@@ -89,10 +87,22 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         $date = new ApproxDate('3/34/89');
     }
 
+    public function testBadDayString2()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('19880254');
+    }
+
     public function testBadMonthString()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('14/3/89');
+    }
+
+    public function testBadMonthString2()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('19861503');
     }
 
     public function testBadYearString()
@@ -107,4 +117,34 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         $date = new ApproxDate('3/3/89953');
     }
 
+    public function testBadDateString()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('198');
+    }
+
+    public function testBadDateString2()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('19987');
+    }
+
+    public function testDateFormat()
+    {
+        $tests = array(
+            array('date' => '45', 'format' => 'n/j/Y', 'result' => '1945'),
+            array('date' => '2011', 'format' => 'm/d/Y', 'result' => '2011'),
+            array('date' => '3/85', 'format' => 'F jS, Y', 'result' => 'March 1985'),
+            array('date' => '04/86', 'format' => 'M j, Y', 'result' => 'Apr 1986'),
+            array('date' => '5/2003', 'format' => 'j-M-Y', 'result' => 'May-2003'),
+            array('date' => '1/3/1992', 'format' => 'F jS, Y', 'result' => 'January 3rd, 1992'),
+            array('date' => '19990000', 'format' => 'm/d/Y', 'result' => '1999'),
+            array('date' => '19981000', 'format' => 'Ymd g:h:a', 'result' => '199810'),
+        );
+
+        foreach ($tests as $test) {
+            $date = new ApproxDate($test['date']);
+            $this->assertEquals($test['result'], $date->format($test['format']));
+        }
+    }
 }
