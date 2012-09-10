@@ -118,18 +118,20 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($gender4);
 
         $this->_em->flush();
-
-        $id1 = $gender1->getId();
-        $id2 = $gender2->getId();
-        $id3 = $gender3->getId();
-        $id4 = $gender4->getId();
-
         $this->_em->clear();
 
         $males = $this->_em->getRepository(self::GENDER)->findByGender('m');
         $this->assertCount(2, $males);
 
         $females = $this->_em->getRepository(self::GENDER)->findByGender('f');
+        $this->assertCount(2, $females);
+
+        $this->_em->clear();
+
+        $males = $this->_em->getRepository(self::GENDER)->findByGender('male');
+        $this->assertCount(2, $males);
+
+        $females = $this->_em->getRepository(self::GENDER)->findByGender('female');
         $this->assertCount(2, $females);
     }
 }
