@@ -2,5 +2,5 @@
 
 Custom data types for Doctrine2.
 
-* ApproxDate - Store incomplete dates. Year, year/month, or year/month/day.
-* Gender
+* ApproxDate - A pseudo-date object to store incomplete date values.
+* Gender - A person's gender.
