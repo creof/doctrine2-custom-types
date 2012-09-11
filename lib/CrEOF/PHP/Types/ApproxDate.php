@@ -174,7 +174,8 @@ class ApproxDate
     {
         $patterns = array(
             '/^(?:(?P<month>0?[1-9]|1[012])[-\.\/](?:(?P<day>0?[1-9]|[12][0-9]|3[01])[-\.\/])?)?(?P<year>\d{2}|\d{4})$/',
-            '/^(?P<year>\d{4})(?P<month>0[0-9]|1[012])(?P<day>0[0-9]|[12][0-9]|3[01])$/'
+            '/^(?P<year>\d{4})(?P<month>0[0-9]|1[012])(?P<day>0[0-9]|[12][0-9]|3[01])$/',
+            '/^(?P<year>\d{4})-(?P<month>0[0-9]|1[012])(?:-(?P<day>0[0-9]|[12][0-9]|3[01]))?$/'
         );
 
         $matches = null;
@@ -183,9 +184,11 @@ class ApproxDate
         foreach ($patterns as $pattern) {
             $matched = preg_match($pattern, $date, $matches);
             if ($matched) {
-                $this->setDay($matches['day'])
-                    ->setMonth($matches['month'])
-                    ->setYear($matches['year']);
+                foreach (array('year', 'month', 'day') as $piece) {
+                    if (isset($matches[$piece])) {
+                        $this->{"set$piece"}($matches[$piece]);
+                    }
+                }
                 break;
             }
         }
