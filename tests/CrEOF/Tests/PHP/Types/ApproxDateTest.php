@@ -28,6 +28,8 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
             array('date' => '19990000', 'result' => '19990000'),
             array('date' => '19981000', 'result' => '19981000'),
             array('date' => '19980323', 'result' => '19980323'),
+            array('date' => '1998-10', 'result' => '19981000'),
+            array('date' => '1998-03-23', 'result' => '19980323'),
         );
 
         foreach ($tests as $test) {
@@ -48,6 +50,12 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         $date = new ApproxDate('19880254');
     }
 
+    public function testBadDay3()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('1988-02-54');
+    }
+
     public function testBadMonth()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
@@ -58,6 +66,12 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19861503');
+    }
+
+    public function testBadMonth3()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('1986-15-03');
     }
 
     public function testBadYear()
@@ -72,6 +86,12 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         $date = new ApproxDate('3/3/89953');
     }
 
+    public function testBadYear3()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('89953-3-3');
+    }
+
     public function testBadDate()
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
@@ -82,6 +102,12 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19987');
+    }
+
+    public function testBadDate3()
+    {
+        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $date = new ApproxDate('199807123');
     }
 
     public function testDateFormat()
