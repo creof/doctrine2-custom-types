@@ -17,9 +17,9 @@
  * SOFTWARE.
  */
 
-namespace CrEOF\PHP\Types;
+namespace CrEOF\CustomTypes\PHP\Types;
 
-use CrEOF\Exception\InvalidValueException;
+use CrEOF\CustomTypes\Exception\InvalidValueException;
 
 /**
  * ApproxDate type

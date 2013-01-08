@@ -17,7 +17,7 @@
  * SOFTWARE.
  */
 
-namespace CrEOF\DBAL\Types;
+namespace CrEOF\CustomTypes\DBAL\Types;
 
 use CrEOF\Exception\InvalidValueException;
 use Doctrine\DBAL\Types\BooleanType;
