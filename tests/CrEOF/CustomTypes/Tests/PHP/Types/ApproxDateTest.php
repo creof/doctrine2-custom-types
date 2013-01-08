@@ -1,8 +1,8 @@
 <?php
 
-namespace CrEOF\Tests\PHP\Types;
+namespace CrEOF\CustomTypes\Tests\PHP\Types;
 
-use CrEOF\PHP\Types\ApproxDate;
+use CrEOF\CustomTypes\PHP\Types\ApproxDate;
 
 class ApproxDateTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,75 +38,123 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test bad day value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDay()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/34/89');
     }
 
+    /**
+     * Test bad day value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDay2()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19880254');
     }
 
+    /**
+     * Test bad day value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDay3()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('1988-02-54');
     }
 
+    /**
+     * Test bad month value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadMonth()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('14/3/89');
     }
 
+    /**
+     * Test bad month value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadMonth2()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19861503');
     }
 
+    /**
+     * Test bad month value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadMonth3()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('1986-15-03');
     }
 
+    /**
+     * Test bad year value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadYear()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/3/899');
     }
 
+    /**
+     * Test bad year value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadYear2()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('3/3/89953');
     }
 
+    /**
+     * Test bad year value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadYear3()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('89953-3-3');
     }
 
+    /**
+     * Test bad date value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDate()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('198');
     }
 
+    /**
+     * Test bad date value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDate2()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('19987');
     }
 
+    /**
+     * Test bad date value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadDate3()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
         $date = new ApproxDate('199807123');
     }
 

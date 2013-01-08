@@ -1,15 +1,15 @@
 <?php
 
-namespace CrEOF\Tests\DBAL\Types;
+namespace CrEOF\CustomTypes\Tests\DBAL\Types;
 
+use CrEOF\CustomTypes\PHP\Types\ApproxDate;
 use Doctrine\ORM\Query;
-use CrEOF\PHP\Types\ApproxDate;
 
 class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
     private static $isSetup = false;
 
-    const RECORD = 'CrEOF\Tests\DBAL\Types\Record';
+    const RECORD = 'CrEOF\CustomTypes\Tests\DBAL\Types\Record';
 
     protected function setUp() {
         parent::setUp();
@@ -113,13 +113,13 @@ class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $records = $this->_em
-            ->createQuery('SELECT r FROM CrEOF\Tests\DBAL\Types\Record r WHERE r.date > :date')
+            ->createQuery('SELECT r FROM CrEOF\CustomTypes\Tests\DBAL\Types\Record r WHERE r.date > :date')
             ->setParameter('date', new ApproxDate('2000'))
             ->getResult();
         $this->assertCount(1, $records);
 
         $records = $this->_em
-            ->createQuery('SELECT r FROM CrEOF\Tests\DBAL\Types\Record r WHERE r.date < :date')
+            ->createQuery('SELECT r FROM CrEOF\CustomTypes\Tests\DBAL\Types\Record r WHERE r.date < :date')
             ->setParameter('date', new ApproxDate('1/1980'))
             ->getResult();
         $this->assertCount(1, $records);

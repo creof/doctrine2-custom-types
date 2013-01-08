@@ -1,15 +1,14 @@
 <?php
 
-namespace CrEOF\Tests\DBAL\Types;
+namespace CrEOF\CustomTypes\Tests\DBAL\Types;
 
 use Doctrine\ORM\Query;
-use CrEOF\PHP\Types\ApproxDate;
 
 class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
     private static $isSetup = false;
 
-    const GENDER = 'CrEOF\Tests\DBAL\Types\Gender';
+    const GENDER = 'CrEOF\CustomTypes\Tests\DBAL\Types\Gender';
 
     protected function setUp() {
         parent::setUp();
@@ -90,7 +89,7 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testBadGender()
     {
-        $this->setExpectedException('CrEOF\Exception\InvalidValueException');
+        $this->setExpectedException('CrEOF\CustomTypes\Exception\InvalidValueException');
 
         $gender1 = new Gender();
         $gender1->setGender('w');
