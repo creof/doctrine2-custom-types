@@ -52,8 +52,8 @@ class ApproxDate
      */
     public function __construct($date = null)
     {
-        if (!empty($date)) {
-            $this->setDate(func_get_arg(0));
+        if ( ! empty($date)) {
+            $this->setDate($date);
         }
     }
 
@@ -70,12 +70,15 @@ class ApproxDate
     {
         $day = (int) $day;
 
-        if (empty($day)) {
-            $this->day = null;
-        } elseif ($day >= 1 && $day <= 31) {
-            $this->day = $day;
-        } else {
-            throw new InvalidValueException("Invalid day value: $day");
+        switch (true) {
+            case empty($day):
+                $this->day = null;
+                break;
+            case ($day >= 1 && $day <= 31):
+                $this->day = $day;
+                break;
+            default:
+                throw new InvalidValueException("Invalid day value: $day");
         }
 
         return $this;
@@ -104,12 +107,15 @@ class ApproxDate
     {
         $month = (int) $month;
 
-        if (empty($month)) {
-            $this->month = null;
-        } elseif ($month >=1 && $month <= 12) {
-            $this->month = $month;
-        } else {
-            throw new InvalidValueException("Invalid month value: $month");
+        switch (true) {
+            case empty($month):
+                $this->month = null;
+                break;
+            case ($month >=1 && $month <= 12):
+                $this->month = $month;
+                break;
+            default:
+                throw new InvalidValueException("Invalid month value: $month");
         }
 
         return $this;
@@ -138,14 +144,18 @@ class ApproxDate
     {
         $year = (int) $year;
 
-        if (empty($year)) {
-            $this->year = null;
-        } elseif (strlen($year) == 2) {
-            $this->year = date('y') + 30 < $year ? "19$year" : "20$year";
-        } elseif (strlen($year) == 4) {
-            $this->year = $year;
-        } else {
-            throw new InvalidValueException("Invalid year value: $year");
+        switch (true) {
+            case empty($year):
+                $this->year = null;
+                break;
+            case (strlen($year) == 2):
+                $this->year = date('y') + 30 < $year ? 1900 + $year : 2000 + $year;
+                break;
+            case (strlen($year) == 4):
+                $this->year = $year;
+                break;
+            default:
+                throw new InvalidValueException("Invalid year value: $year");
         }
 
         return $this;
@@ -172,32 +182,53 @@ class ApproxDate
      */
     public function setDate($date)
     {
-        $patterns = array(
-            '/^(?:(?P<month>0?[1-9]|1[012])[-\.\/](?:(?P<day>0?[1-9]|[12][0-9]|3[01])[-\.\/])?)?(?P<year>\d{2}|\d{4})$/',
-            '/^(?P<year>\d{4})(?P<month>0[0-9]|1[012])(?P<day>0[0-9]|[12][0-9]|3[01])$/',
-            '/^(?P<year>\d{4})-(?P<month>0[0-9]|1[012])(?:-(?P<day>0[0-9]|[12][0-9]|3[01]))?$/'
-        );
+        $regex = <<<EOD
+/(?J)
+^
+(?:
+    (?:
+        (?<year>\d{4})
+        (?<month>\d{1,2})
+        (?<day>\d{1,2})
+    )
+    |
+    (?:
+        (?P<year>\d{4})
+        -
+        (?P<month>\d{1,2})
+        (?:
+            -
+            (?P<day>\d{1,2}))?
+        )
+    |
+    (?:
+        (?:
+            (?<month>\d{1,2})
+            [-\.\/]
+            (?:
+                (?<day>\d{1,2})
+                [-\.\/]
+            )?
+        )?
+        (?<year>\d{2}|\d{4})
+    )
+)
+$
+/x
+EOD;
 
-        $matches = null;
-        $matched = null;
-
-        foreach ($patterns as $pattern) {
-            $matched = preg_match($pattern, $date, $matches);
-            if ($matched) {
-                foreach (array('year', 'month', 'day') as $piece) {
-                    if (isset($matches[$piece])) {
-                        $this->{"set$piece"}($matches[$piece]);
-                    }
-                }
+        switch (1) {
+            case preg_match_all($regex, $date, $matches, PREG_SET_ORDER):
                 break;
-            }
+            default:
+                throw new InvalidValueException("Invalid date value: $date");
         }
 
-        if (!$matched) {
-            throw new InvalidValueException("Invalid date value: $date");
-        }
+        $date = $matches[0];
 
-        return $this;
+        return $this->setMonth($date['month'])
+            ->setDay($date['day'])
+            ->setYear($date['year']);
     }
 
     /**
@@ -211,6 +242,8 @@ class ApproxDate
     }
 
     /**
+     * Convert value to string
+     *
      * @return string
      */
     public function __toString()
