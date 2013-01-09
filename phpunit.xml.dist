@@ -9,12 +9,12 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="./tests/CrEOF/Tests/TestInit.php"
+         bootstrap="./tests/CrEOF/CustomTypes/Tests/TestInit.php"
         >
 
     <testsuites>
         <testsuite>
-            <directory>./tests/CrEOF/Tests</directory>
+            <directory>./tests/CrEOF/CustomTypes/Tests</directory>
         </testsuite>
     </testsuites>
 
