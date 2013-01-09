@@ -62,7 +62,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDay()
     {
-        $date = new ApproxDate('3/34/89');
+        new ApproxDate('3/34/89');
     }
 
     /**
@@ -72,7 +72,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDay2()
     {
-        $date = new ApproxDate('19880254');
+        new ApproxDate('19880254');
     }
 
     /**
@@ -82,7 +82,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDay3()
     {
-        $date = new ApproxDate('1988-02-54');
+        new ApproxDate('1988-02-54');
     }
 
     /**
@@ -92,7 +92,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMonth()
     {
-        $date = new ApproxDate('14/3/89');
+        new ApproxDate('14/3/89');
     }
 
     /**
@@ -102,7 +102,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMonth2()
     {
-        $date = new ApproxDate('19861503');
+        new ApproxDate('19861503');
     }
 
     /**
@@ -112,7 +112,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMonth3()
     {
-        $date = new ApproxDate('1986-15-03');
+        new ApproxDate('1986-15-03');
     }
 
     /**
@@ -122,7 +122,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadYear()
     {
-        $date = new ApproxDate('3/3/899');
+        new ApproxDate('3/3/899');
     }
 
     /**
@@ -132,7 +132,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadYear2()
     {
-        $date = new ApproxDate('3/3/89953');
+        new ApproxDate('3/3/89953');
     }
 
     /**
@@ -142,7 +142,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadYear3()
     {
-        $date = new ApproxDate('89953-3-3');
+        new ApproxDate('89953-3-3');
     }
 
     /**
@@ -152,7 +152,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDate()
     {
-        $date = new ApproxDate('198');
+        new ApproxDate('198');
     }
 
     /**
@@ -162,7 +162,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDate2()
     {
-        $date = new ApproxDate('19987');
+        new ApproxDate('19987');
     }
 
     /**
@@ -172,7 +172,7 @@ class ApproxDateTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDate3()
     {
-        $date = new ApproxDate('199807123');
+        new ApproxDate('199807123');
     }
 
     public function testDateFormat()

@@ -20,40 +20,13 @@
 namespace CrEOF\CustomTypes\Tests\DBAL\Types;
 
 use CrEOF\CustomTypes\PHP\Types\ApproxDate;
-use Doctrine\ORM\Query;
 
-class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
+class ApproxDateTypeTest extends \CrEOF\CustomTypes\Tests\OrmTest
 {
-    private static $isSetup = false;
-
-    const RECORD = 'CrEOF\CustomTypes\Tests\DBAL\Types\Record';
-
-    protected function setUp() {
-        parent::setUp();
-        if (!static::$isSetup) {
-            $this->_schemaTool->createSchema(array(
-                                                  $this->_em->getClassMetadata(self::RECORD),
-                                             ));
-            static::$isSetup = true;
-        }
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-
-        $conn = static::$_sharedConn;
-
-        $this->_sqlLoggerStack->enabled = false;
-
-        $conn->executeUpdate('DELETE FROM Record');
-
-        $this->_em->clear();
-    }
-
     public function testNullApproxDate()
     {
-        $record = new Record();
+        $record = new ApproxDateEntity();
+
         $this->_em->persist($record);
         $this->_em->flush();
 
@@ -61,13 +34,15 @@ class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $queryRecord = $this->_em->getRepository(self::RECORD)->find($id);
+        $queryRecord = $this->_em->getRepository(self::APPROXDATE_ENTITY)->find($id);
+
         $this->assertEquals($record, $queryRecord);
     }
 
     public function testEmptyApproxDate()
     {
-        $record = new Record();
+        $record = new ApproxDateEntity();
+
         $record->setDate(new ApproxDate());
         $this->_em->persist($record);
         $this->_em->flush();
@@ -76,21 +51,25 @@ class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $queryRecord = $this->_em->getRepository(self::RECORD)->find($id);
+        $queryRecord = $this->_em->getRepository(self::APPROXDATE_ENTITY)->find($id);
+
         $this->assertEquals($record, $queryRecord);
     }
 
     public function testValueApproxDate()
     {
-        $record1 = new Record();
+        $record1 = new ApproxDateEntity();
+
         $record1->setDate(new ApproxDate('5/22/12'));
         $this->_em->persist($record1);
 
-        $record2 = new Record();
+        $record2 = new ApproxDateEntity();
+
         $record2->setDate(new ApproxDate('1995'));
         $this->_em->persist($record2);
 
-        $record3 = new Record();
+        $record3 = new ApproxDateEntity();
+
         $record3->setDate(new ApproxDate('11/78'));
         $this->_em->persist($record3);
 
@@ -102,51 +81,60 @@ class ApproxDateTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $queryRecord1 = $this->_em->getRepository(self::RECORD)->find($id1);
+        $queryRecord1 = $this->_em->getRepository(self::APPROXDATE_ENTITY)->find($id1);
+
         $this->assertEquals($record1, $queryRecord1);
 
-        $queryRecord2 = $this->_em->getRepository(self::RECORD)->find($id2);
+        $queryRecord2 = $this->_em->getRepository(self::APPROXDATE_ENTITY)->find($id2);
+
         $this->assertEquals($record2, $queryRecord2);
 
-        $queryRecord3 = $this->_em->getRepository(self::RECORD)->find($id3);
+        $queryRecord3 = $this->_em->getRepository(self::APPROXDATE_ENTITY)->find($id3);
+
         $this->assertEquals($record3, $queryRecord3);
     }
 
     public function testQueryApproxDate()
     {
-        $record1 = new Record();
+        $record1 = new ApproxDateEntity();
+
         $record1->setDate(new ApproxDate('5/22/12'));
         $this->_em->persist($record1);
 
-        $record2 = new Record();
+        $record2 = new ApproxDateEntity();
+
         $record2->setDate(new ApproxDate('1995'));
         $this->_em->persist($record2);
 
-        $record3 = new Record();
+        $record3 = new ApproxDateEntity();
+
         $record3->setDate(new ApproxDate('11/78'));
         $this->_em->persist($record3);
-
         $this->_em->flush();
         $this->_em->clear();
 
         $records = $this->_em
-            ->createQuery('SELECT r FROM CrEOF\CustomTypes\Tests\DBAL\Types\Record r WHERE r.date > :date')
+            ->createQuery('SELECT a FROM CrEOF\CustomTypes\Tests\DBAL\Types\ApproxDateEntity a WHERE a.date > :date')
             ->setParameter('date', new ApproxDate('2000'))
             ->getResult();
+
         $this->assertCount(1, $records);
 
         $records = $this->_em
-            ->createQuery('SELECT r FROM CrEOF\CustomTypes\Tests\DBAL\Types\Record r WHERE r.date < :date')
+            ->createQuery('SELECT a FROM CrEOF\CustomTypes\Tests\DBAL\Types\ApproxDateEntity a WHERE a.date > :date')
             ->setParameter('date', new ApproxDate('1/1980'))
             ->getResult();
-        $this->assertCount(1, $records);
+
+        $this->assertCount(2, $records);
     }
 }
 
 /**
+ * ApproxDateEntity
+ *
  * @Entity
  */
-class Record
+class ApproxDateEntity
 {
     /**
      * @var int $id

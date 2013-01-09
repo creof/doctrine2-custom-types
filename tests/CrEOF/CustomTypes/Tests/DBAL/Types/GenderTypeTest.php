@@ -19,40 +19,11 @@
 
 namespace CrEOF\CustomTypes\Tests\DBAL\Types;
 
-use Doctrine\ORM\Query;
-
-class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
+class GenderTypeTest extends \CrEOF\CustomTypes\Tests\OrmTest
 {
-    private static $isSetup = false;
-
-    const GENDER = 'CrEOF\CustomTypes\Tests\DBAL\Types\Gender';
-
-    protected function setUp() {
-        parent::setUp();
-        if (!static::$isSetup) {
-            $this->_schemaTool->createSchema(array(
-                                                  $this->_em->getClassMetadata(self::GENDER),
-                                             ));
-            static::$isSetup = true;
-        }
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-
-        $conn = static::$_sharedConn;
-
-        $this->_sqlLoggerStack->enabled = false;
-
-        $conn->executeUpdate('DELETE FROM Gender');
-
-        $this->_em->clear();
-    }
-
     public function testNullGender()
     {
-        $gender = new Gender();
+        $gender = new GenderEntity();
         $this->_em->persist($gender);
         $this->_em->flush();
 
@@ -60,25 +31,25 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $queryGender = $this->_em->getRepository(self::GENDER)->find($id);
+        $queryGender = $this->_em->getRepository(self::GENDER_ENTITY)->find($id);
         $this->assertEquals($gender, $queryGender);
     }
 
     public function testGoodGender()
     {
-        $gender1 = new Gender();
+        $gender1 = new GenderEntity();
         $gender1->setGender('m');
         $this->_em->persist($gender1);
 
-        $gender2 = new Gender();
+        $gender2 = new GenderEntity();
         $gender2->setGender('MALE');
         $this->_em->persist($gender2);
 
-        $gender3 = new Gender();
+        $gender3 = new GenderEntity();
         $gender3->setGender('f');
         $this->_em->persist($gender3);
 
-        $gender4 = new Gender();
+        $gender4 = new GenderEntity();
         $gender4->setGender('FEMALE');
         $this->_em->persist($gender4);
 
@@ -91,24 +62,27 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $queryGender1 = $this->_em->getRepository(self::GENDER)->find($id1);
+        $queryGender1 = $this->_em->getRepository(self::GENDER_ENTITY)->find($id1);
         $this->assertEquals('m', $queryGender1->getGender());
 
-        $queryGender2 = $this->_em->getRepository(self::GENDER)->find($id2);
+        $queryGender2 = $this->_em->getRepository(self::GENDER_ENTITY)->find($id2);
         $this->assertEquals('m', $queryGender2->getGender());
 
-        $queryGender3 = $this->_em->getRepository(self::GENDER)->find($id3);
+        $queryGender3 = $this->_em->getRepository(self::GENDER_ENTITY)->find($id3);
         $this->assertEquals('f', $queryGender3->getGender());
 
-        $queryGender4 = $this->_em->getRepository(self::GENDER)->find($id4);
+        $queryGender4 = $this->_em->getRepository(self::GENDER_ENTITY)->find($id4);
         $this->assertEquals('f', $queryGender4->getGender());
     }
 
+    /**
+     * Test bad gender value
+     *
+     * @expectedException \CrEOF\CustomTypes\Exception\InvalidValueException
+     */
     public function testBadGender()
     {
-        $this->setExpectedException('CrEOF\CustomTypes\Exception\InvalidValueException');
-
-        $gender1 = new Gender();
+        $gender1 = new GenderEntity();
         $gender1->setGender('w');
         $this->_em->persist($gender1);
 
@@ -117,45 +91,47 @@ class GenderTypeTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testGenderFind()
     {
-        $gender1 = new Gender();
+        $gender1 = new GenderEntity();
         $gender1->setGender('m');
         $this->_em->persist($gender1);
 
-        $gender2 = new Gender();
+        $gender2 = new GenderEntity();
         $gender2->setGender('m');
         $this->_em->persist($gender2);
 
-        $gender3 = new Gender();
+        $gender3 = new GenderEntity();
         $gender3->setGender('f');
         $this->_em->persist($gender3);
 
-        $gender4 = new Gender();
+        $gender4 = new GenderEntity();
         $gender4->setGender('f');
         $this->_em->persist($gender4);
 
         $this->_em->flush();
         $this->_em->clear();
 
-        $males = $this->_em->getRepository(self::GENDER)->findByGender('m');
+        $males = $this->_em->getRepository(self::GENDER_ENTITY)->findByGender('m');
         $this->assertCount(2, $males);
 
-        $females = $this->_em->getRepository(self::GENDER)->findByGender('f');
+        $females = $this->_em->getRepository(self::GENDER_ENTITY)->findByGender('f');
         $this->assertCount(2, $females);
 
         $this->_em->clear();
 
-        $males = $this->_em->getRepository(self::GENDER)->findByGender('male');
+        $males = $this->_em->getRepository(self::GENDER_ENTITY)->findByGender('male');
         $this->assertCount(2, $males);
 
-        $females = $this->_em->getRepository(self::GENDER)->findByGender('female');
+        $females = $this->_em->getRepository(self::GENDER_ENTITY)->findByGender('female');
         $this->assertCount(2, $females);
     }
 }
 
 /**
+ * GenderEntity
+ *
  * @Entity
  */
-class Gender
+class GenderEntity
 {
     /**
      * @var int $id
