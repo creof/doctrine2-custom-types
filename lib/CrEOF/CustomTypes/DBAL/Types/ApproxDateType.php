@@ -17,7 +17,7 @@
  * SOFTWARE.
  */
 
-namespace CrEOF\DBAL\Types;
+namespace CrEOF\CustomTypes\DBAL\Types;
 
 use CrEOF\CustomTypes\PHP\Types\ApproxDate;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

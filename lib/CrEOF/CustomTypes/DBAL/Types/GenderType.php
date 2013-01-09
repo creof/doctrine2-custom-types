@@ -19,7 +19,7 @@
 
 namespace CrEOF\CustomTypes\DBAL\Types;
 
-use CrEOF\Exception\InvalidValueException;
+use CrEOF\CustomTypes\Exception\InvalidValueException;
 use Doctrine\DBAL\Types\BooleanType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
