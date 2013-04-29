@@ -148,10 +148,10 @@ class ApproxDate
             case empty($year):
                 $this->year = null;
                 break;
-            case (strlen($year) == 2):
-                $this->year = date('y') + 30 < $year ? 1900 + $year : 2000 + $year;
+            case ($year < 100):
+                $this->year = (int) date('y') + 30 < $year ? 1900 + $year : 2000 + $year;
                 break;
-            case (strlen($year) == 4):
+            case ($year > 999):
                 $this->year = $year;
                 break;
             default:
