@@ -36,12 +36,7 @@ class GenderType extends BooleanType
     const GENDER = 'gender';
 
     /**
-     * Convert database value to PHP value
-     *
-     * @param string           $value
-     * @param AbstractPlatform $platform
-     *
-     * @return null|string
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -49,14 +44,7 @@ class GenderType extends BooleanType
     }
 
     /**
-     * Convert PHP value to database value
-     *
-     * @param string           $value
-     * @param AbstractPlatform $platform
-     *
-     * @throws InvalidValueException
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -81,9 +69,7 @@ class GenderType extends BooleanType
     }
 
     /**
-     * Get type name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

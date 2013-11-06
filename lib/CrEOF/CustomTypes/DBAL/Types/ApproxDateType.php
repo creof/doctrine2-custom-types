@@ -36,12 +36,7 @@ class ApproxDateType extends IntegerType
     const APPROX_DATE = 'approx_date';
 
     /**
-     * Convert database value to PHP value
-     *
-     * @param string           $value
-     * @param AbstractPlatform $platform
-     *
-     * @return null|string
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -49,12 +44,7 @@ class ApproxDateType extends IntegerType
     }
 
     /**
-     * Convert PHP value to database value
-     *
-     * @param string           $value
-     * @param AbstractPlatform $platform
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -62,9 +52,7 @@ class ApproxDateType extends IntegerType
     }
 
     /**
-     * Get type name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
