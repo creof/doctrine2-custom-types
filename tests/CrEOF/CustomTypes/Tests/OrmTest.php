@@ -34,6 +34,11 @@ abstract class OrmTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     protected static $_setup = false;
 
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    protected static $_sharedConn;
+
     const APPROXDATE_ENTITY = 'CrEOF\CustomTypes\Tests\DBAL\Types\ApproxDateEntity';
     const GENDER_ENTITY = 'CrEOF\CustomTypes\Tests\DBAL\Types\GenderEntity';
 
