@@ -73,4 +73,20 @@ class GenderType extends BooleanType
     {
         return array_search(get_class($this), $this->getTypesMap());
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMappedDatabaseTypes(AbstractPlatform $platform)
+    {
+        return array($this->getName());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
+    }
 }
