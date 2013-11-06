@@ -74,4 +74,12 @@ abstract class OrmTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
     }
+
+    /**
+     * @return \Doctrine\DBAL\Platforms\AbstractPlatform
+     */
+    protected function getPlatform()
+    {
+        return static::$_sharedConn->getDatabasePlatform();
+    }
 }
