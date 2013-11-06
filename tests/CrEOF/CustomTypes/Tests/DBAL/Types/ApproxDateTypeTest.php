@@ -127,6 +127,25 @@ class ApproxDateTypeTest extends \CrEOF\CustomTypes\Tests\OrmTest
 
         $this->assertCount(2, $records);
     }
+
+    public function testMapping()
+    {
+        $metadata = $this->_em->getClassMetadata(self::APPROXDATE_ENTITY);
+
+        foreach ($metadata->getFieldNames() as $fieldName) {
+            $fieldType = $metadata->getTypeOfField($fieldName);
+
+            // Throws exception if mapping does not exist
+            $typeMapping = $this->getPlatform()->getDoctrineTypeMapping($fieldType);
+        }
+    }
+
+    public function testReverseMapping()
+    {
+        $result = $this->_schemaTool->getUpdateSchemaSql(array($this->_em->getClassMetadata(self::APPROXDATE_ENTITY)), true);
+
+        $this->assertCount(0, $result);
+    }
 }
 
 /**

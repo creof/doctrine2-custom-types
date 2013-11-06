@@ -124,6 +124,25 @@ class GenderTypeTest extends \CrEOF\CustomTypes\Tests\OrmTest
         $females = $this->_em->getRepository(self::GENDER_ENTITY)->findByGender('female');
         $this->assertCount(2, $females);
     }
+
+    public function testMapping()
+    {
+        $metadata = $this->_em->getClassMetadata(self::GENDER_ENTITY);
+
+        foreach ($metadata->getFieldNames() as $fieldName) {
+            $fieldType = $metadata->getTypeOfField($fieldName);
+
+            // Throws exception if mapping does not exist
+            $typeMapping = $this->getPlatform()->getDoctrineTypeMapping($fieldType);
+        }
+    }
+
+    public function testReverseMapping()
+    {
+        $result = $this->_schemaTool->getUpdateSchemaSql(array($this->_em->getClassMetadata(self::GENDER_ENTITY)), true);
+
+        $this->assertCount(0, $result);
+    }
 }
 
 /**
