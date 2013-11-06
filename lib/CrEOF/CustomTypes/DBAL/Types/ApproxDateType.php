@@ -33,8 +33,6 @@ use Doctrine\DBAL\Types\IntegerType;
  */
 class ApproxDateType extends IntegerType
 {
-    const APPROX_DATE = 'approx_date';
-
     /**
      * {@inheritdoc}
      */
@@ -56,6 +54,6 @@ class ApproxDateType extends IntegerType
      */
     public function getName()
     {
-        return self::APPROX_DATE;
+        return array_search(get_class($this), $this->getTypesMap());
     }
 }

@@ -33,8 +33,6 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  */
 class GenderType extends BooleanType
 {
-    const GENDER = 'gender';
-
     /**
      * {@inheritdoc}
      */
@@ -73,6 +71,6 @@ class GenderType extends BooleanType
      */
     public function getName()
     {
-        return self::GENDER;
+        return array_search(get_class($this), $this->getTypesMap());
     }
 }
