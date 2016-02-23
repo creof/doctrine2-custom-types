@@ -1,24 +1,27 @@
 {
-    "name": "creof/doctrine2-custom-types",
-    "type": "library",
+    "name":        "creof/doctrine2-custom-types",
+    "type":        "library",
     "description": "Doctrine2 custom data types",
     "keywords": ["orm", "database", "type", "data"],
     "authors": [
         {
-            "name": "Derek Lambert",
+            "name":  "Derek Lambert",
             "email": "dlambert@dereklambert.com"
         }
     ],
     "license" : "MIT",
     "require": {
-        "doctrine/orm": ">=2.1"
+        "php":          ">=7.0",
+        "doctrine/orm": "~2.5"
     },
     "require-dev": {
-        "doctrine/common": ">=2.1",
-        "doctrine/dbal": ">=2.1"
+        "phpunit/phpunit": "~5.2"
     },
     "autoload": {
-        "psr-0": {
-            "CrEOF\\CustomTypes": "lib/" }
+        "psr-4": { "CrEOF\\Doctrine\\CustomTypes\\": "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "CrEOF\\Doctrine\\CustomTypes\\Tests\\": "tests/" }
     }
+
 }
