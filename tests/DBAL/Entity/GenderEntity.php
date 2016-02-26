@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\Tests\DBAL\Entity;
 
 /**
@@ -56,7 +54,7 @@ class GenderEntity
      *
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -68,7 +66,7 @@ class GenderEntity
      *
      * @return self
      */
-    public function setGender($gender): self
+    public function setGender($gender)
     {
         $this->gender = $gender;
 

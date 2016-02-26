@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\Tests\DBAL;
 
 use CrEOF\Doctrine\CustomTypes\Tests\OrmTestCase;

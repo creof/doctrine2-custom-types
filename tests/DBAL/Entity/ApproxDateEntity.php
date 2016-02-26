@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\Tests\DBAL\Entity;
 
 use CrEOF\Doctrine\CustomTypes\PHP\ApproxDate;
@@ -58,7 +56,7 @@ class ApproxDateEntity
      *
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -70,7 +68,7 @@ class ApproxDateEntity
      *
      * @return self
      */
-    public function setDate(ApproxDate $date): self
+    public function setDate(ApproxDate $date)
     {
         $this->date = $date;
 
