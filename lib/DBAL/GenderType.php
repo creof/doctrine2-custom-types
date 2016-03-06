@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\DBAL;
 
 use CrEOF\Doctrine\CustomTypes\Exception\InvalidArgumentException;
@@ -86,7 +84,7 @@ class GenderType extends BooleanType
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return array_search(get_class($this), static::getTypesMap(), true);
     }
@@ -96,7 +94,7 @@ class GenderType extends BooleanType
      *
      * @return array
      */
-    public function getMappedDatabaseTypes(AbstractPlatform $platform): array
+    public function getMappedDatabaseTypes(AbstractPlatform $platform)
     {
         return array($this->getName());
     }
@@ -106,7 +104,7 @@ class GenderType extends BooleanType
      *
      * @return bool
      */
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;
     }

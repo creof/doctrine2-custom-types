@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\DBAL;
 
 use CrEOF\Doctrine\CustomTypes\PHP\ApproxDate;
@@ -74,7 +72,7 @@ class ApproxDateType extends IntegerType
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return array_search(get_class($this), static::getTypesMap(), true);
     }
@@ -84,7 +82,7 @@ class ApproxDateType extends IntegerType
      *
      * @return array
      */
-    public function getMappedDatabaseTypes(AbstractPlatform $platform): array
+    public function getMappedDatabaseTypes(AbstractPlatform $platform)
     {
         return array($this->getName());
     }
@@ -94,7 +92,7 @@ class ApproxDateType extends IntegerType
      *
      * @return bool
      */
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;
     }

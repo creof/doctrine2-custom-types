@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\Tests\PHP;
 
 use CrEOF\Doctrine\CustomTypes\Exception\InvalidArgumentException;
@@ -41,7 +39,7 @@ class ApproxDateTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function dateValueData(): array
+    public function dateValueData()
     {
         return [
             'testNoValue' => [

@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\PHP;
 
 use DateTime;
@@ -69,7 +67,7 @@ class ApproxDate
      *
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->getDate();
     }
@@ -82,7 +80,7 @@ class ApproxDate
      * @return self
      * @throws InvalidArgumentException
      */
-    public function setDay(int $day): self
+    public function setDay($day)
     {
         if ($day < 0 || $day > 31) {
             throw new InvalidArgumentException('Invalid day value "' . $day . '"');
@@ -98,7 +96,7 @@ class ApproxDate
      *
      * @return int
      */
-    public function getDay(): int
+    public function getDay()
     {
         return (int) $this->day;
     }
@@ -111,7 +109,7 @@ class ApproxDate
      * @return self
      * @throws InvalidArgumentException
      */
-    public function setMonth(int $month): self
+    public function setMonth($month)
     {
         if ($month < 0 || $month > 12) {
             throw new InvalidArgumentException('Invalid month value "' . $month . '"');
@@ -127,7 +125,7 @@ class ApproxDate
      *
      * @return int
      */
-    public function getMonth(): int
+    public function getMonth()
     {
         return (int) $this->month;
     }
@@ -140,7 +138,7 @@ class ApproxDate
      * @return self
      * @throws InvalidArgumentException
      */
-    public function setYear(int $year): self
+    public function setYear($year)
     {
         switch (true) {
             case ($year < 100):
@@ -161,7 +159,7 @@ class ApproxDate
      *
      * @return int
      */
-    public function getYear(): int
+    public function getYear()
     {
         return (int) $this->year;
     }
@@ -174,7 +172,7 @@ class ApproxDate
      * @return self
      * @throws InvalidArgumentException
      */
-    public function setDate(string $date)
+    public function setDate($date)
     {
         $regex = <<<EOD
 /(?J)
@@ -226,7 +224,7 @@ EOD;
      *
      * @return string
      */
-    public function getDate(): string
+    public function getDate()
     {
         return sprintf('%04d%02d%02d', $this->getYear(), $this->getMonth(), $this->getDay());
     }
@@ -238,7 +236,7 @@ EOD;
      *
      * @return string
      */
-    public function format(string $format): string
+    public function format($format)
     {
         $patterns = [
             'day'   => '[dDjlNSwzW]',
@@ -265,7 +263,7 @@ EOD;
     /**
      * @return string
      */
-    protected function getFormatFromDate(): string
+    protected function getFormatFromDate()
     {
         $patterns = array(
             '/11\D21\D(1999|99)/',

@@ -21,8 +21,6 @@
  * SOFTWARE.
  */
 
-declare(strict_types = 1);
-
 namespace CrEOF\Doctrine\CustomTypes\Tests;
 
 use PHPUnit_Framework_TestCase;
@@ -34,7 +32,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Tools\SchemaTool;
 
 /**
- * Class TestCase
+ * Class OrmTestCase
  *
  * @author  Derek J. Lambert <dlambert@dereklambert.com>
  * @license http://dlambert.mit-license.org MIT
@@ -138,11 +136,6 @@ abstract class OrmTestCase extends PHPUnit_Framework_TestCase
         if (null !== static::$connection) {
             return static::$connection;
         }
-
-//        $connection = DriverManager::getConnection([
-//                'driver' => 'pdo_sqlite',
-//                'path'   => __DIR__ . '/db.sqlite'
-//            ]);
 
         return DriverManager::getConnection(self::getConnectionParameters());
     }
